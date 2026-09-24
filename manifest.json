@@ -1,0 +1,11 @@
+{
+  "package": "ScienceHub.io_PHASE-1_FOUNDATION",
+  "phase": 1,
+  "status": "integrated foundation package; final lock still requires explicit user approval",
+  "file_count": 37,
+  "copyright_note": "No copyrighted NCERT PDFs bundled; resource support is specified for legally obtained/official resources.",
+  "visual_assets_integrated": true,
+  "visual_asset_files": 4,
+  "unique_visual_identities": 3,
+  "sukoon_brain_realtime_functionality_integrated": true
+}
