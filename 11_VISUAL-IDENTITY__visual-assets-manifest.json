@@ -1,0 +1,32 @@
+{
+  "uploaded_files": 4,
+  "unique_visual_identities": 3,
+  "sciencehub_primary": "11_VISUAL-IDENTITY__OFFICIAL-UPLOADED-ASSETS__SCIENCEHUB-APP-ICON-FRONT.png",
+  "sciencehub_secondary": "11_VISUAL-IDENTITY__OFFICIAL-UPLOADED-ASSETS__SCIENCEHUB-APP-ICON-SECONDARY.png",
+  "sukoon_brain_same_identity": [
+    "OFFICIAL-UPLOADED-ASSETS/SUKOON-BRAIN-LIVE-REFERENCE-1.png",
+    "OFFICIAL-UPLOADED-ASSETS/SUKOON-BRAIN-LIVE-REFERENCE-2.png"
+  ],
+  "electron_count": 8,
+  "electron_revolution_seconds": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "offline_realtime_core": true,
+  "online_realtime_core": true,
+  "original_visual_required": true,
+  "automatic_visual_replacement": false,
+  "user_visual_authority": true,
+  "upload_layout": "flat_filename_encoded_hierarchy",
+  "path_encoding": "11_VISUAL-IDENTITY__OFFICIAL-UPLOADED-ASSETS__<filename>",
+  "sukoon_brain_references": [
+    "11_VISUAL-IDENTITY__OFFICIAL-UPLOADED-ASSETS__SUKOON-BRAIN-LIVE-REFERENCE-1.png",
+    "11_VISUAL-IDENTITY__OFFICIAL-UPLOADED-ASSETS__SUKOON-BRAIN-LIVE-REFERENCE-2.png"
+  ]
+}
