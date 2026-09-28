@@ -1,0 +1,26 @@
+{
+  "phase": "Phase 3",
+  "title": "ScienceHub.io Phase 3",
+  "status": "LOCKED",
+  "file_count": 30,
+  "scope": "Architecture + Technical Contracts + Authority & Implementation Blueprint",
+  "production_implementation": false,
+  "owner": "Primary User = Developer = Project Owner",
+  "navigation": [
+    "Home",
+    "Learning",
+    "Practice",
+    "Performance",
+    "Assets",
+    "Profile",
+    "Settings"
+  ],
+  "hierarchy": [
+    "Module",
+    "Submodule",
+    "Section",
+    "Component",
+    "Service"
+  ],
+  "source_of_truth": "Phase 3 Exact Creation Handoff; Phase 1 Foundation; Phase 2 Locked Specification"
+}

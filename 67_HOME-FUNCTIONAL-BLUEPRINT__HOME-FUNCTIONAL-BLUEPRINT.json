@@ -1,0 +1,56 @@
+{
+  "title": "ScienceHub.io Home Functional Blueprint",
+  "status": "LOCKED",
+  "sections": [
+    "Hero/Welcome",
+    "Academic Context",
+    "Today’s Overview",
+    "Today’s Focus",
+    "Continue Learning",
+    "Subject Hub",
+    "Study Pipeline",
+    "Practice Center",
+    "PYQ Center",
+    "Revision Center",
+    "Performance Snapshot",
+    "Learning Opportunities",
+    "Assets/Gallery",
+    "AI Ecosystem",
+    "Notifications/Events",
+    "User Control",
+    "Upgrade Guard",
+    "Offline/Online",
+    "System Status",
+    "Quick Actions",
+    "Footer/System Info"
+  ],
+  "subjects": [
+    "Physics",
+    "Chemistry",
+    "Biology",
+    "English",
+    "Hindi"
+  ],
+  "pcb_is_subject": false,
+  "learning_hierarchy": [
+    "Subject",
+    "Chapter",
+    "Topic",
+    "Concept",
+    "Practice",
+    "PYQ",
+    "Performance",
+    "Analysis",
+    "Revision",
+    "Mastery"
+  ],
+  "profile_picture_rule": {
+    "minimum_lock_days": 15,
+    "user_only_change": true,
+    "silent_ai_replacement": false
+  },
+  "customization": {
+    "show_hide_reorder_normal_sections": true,
+    "mandatory_safety_sections_hideable": false
+  }
+}
