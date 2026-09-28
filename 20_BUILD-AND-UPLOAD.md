@@ -1,0 +1,2 @@
+# Build/Upload Note
+The package is intentionally dependency-light and GitHub Pages compatible. Upload the root files without wrapping them in an extra folder. GitHub Pages can serve 3_index.html only if renamed to index.html during the actual deployment integration step; that rename is intentionally not performed here to preserve numbered GitHub-upload convention. Production deployment must follow the release approval process.
