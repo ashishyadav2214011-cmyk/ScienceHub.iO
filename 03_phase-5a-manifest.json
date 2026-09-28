@@ -1,0 +1,20 @@
+{
+  "project": "ScienceHub.io",
+  "phase": "5A",
+  "title": "Academic & Learning System",
+  "status": "LOCKED_SPECIFICATION",
+  "classes": [11,12],
+  "boards": {"supported":"multiple","default":"UP Board"},
+  "languages": ["Hindi","English"],
+  "bilingual_mode": "side_by_side_or_selectable",
+  "learning_hierarchy": ["Subject","Chapter","Topic","Concept","Practice","PYQ","Performance","Analysis","Revision","Mastery"],
+  "production_code": false,
+  "visual_assets": {
+    "official_icon_count": 3,
+    "reference_board_count": 1,
+    "internal_app_icon": "11_VISUAL-INTEGRATION__SCIENCEHUB-INTERNAL-APP-ICON.png",
+    "frontend_app_icon": "11_VISUAL-INTEGRATION__SCIENCEHUB-FRONTEND-APP-ICON.png",
+    "sukoon_brain_realtime_icon": "11_VISUAL-INTEGRATION__SUKOON-BRAIN-REALTIME-ICON.png",
+    "reference_board": "11_VISUAL-INTEGRATION__ICON-SET-REFERENCE-BOARD.png"
+  }
+}
