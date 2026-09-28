@@ -1,0 +1,11 @@
+{
+  "project": "ScienceHub.io",
+  "phase": 5,
+  "title": "Academic & Learning System",
+  "status": "DEFINED_PACKAGE_PENDING_FINAL_USER_LOCK",
+  "production_implementation": false,
+  "decisions_answered": 20,
+  "file_count": 25,
+  "offline_first": true,
+  "user_controlled_execution": true
+}
