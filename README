@@ -1,0 +1,22 @@
+# ScienceHub.io — Root PWA Conflict Resolution
+
+Purpose: controlled correction of the current Phase 4 PWA entry-point/runtime mismatch.
+
+## Corrected
+1. Restores the canonical root `index.html`.
+2. Keeps `3_index.html` untouched as the reference/transition artifact.
+3. Corrects `6_sw.js` to use the canonical `index.html`.
+4. Corrects the Service Worker activate promise chain.
+5. Uses a new cache version so the corrected runtime can supersede the old cache after validation.
+
+## Upload
+Extract this ZIP and upload/replace ONLY:
+- `index.html`
+- `6_sw.js`
+
+at the repository ROOT.
+
+Do NOT delete `3_index.html`, the manifest, CSS, JS, assets, Phase documents, or other existing files.
+
+## Important
+This package does not claim the full ScienceHub application is complete. It only resolves the identified root PWA entry-point and Service Worker implementation mismatch.
