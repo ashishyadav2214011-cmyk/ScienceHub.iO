@@ -10,7 +10,7 @@ let current={route:state.route||'Home',subjectId:null,chapterId:null,conceptId:n
 const engine=new AcademicEngine(DATA,store);
 
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function t(en,hi){return filter.language==='hi'?hi:en;}
+function t(en,hi){const english=String(en??'');const hindi=String(hi??'');if(filter.language==='hi')return hindi||english;if(filter.language==='bi'&&hindi)return `${english} · ${hindi}`;return english;}
 function save(){state.route=current.route;state.academic={...state.academic,...filter};return store.saveAppState(state);}
 function card(title,body,actions=''){return `<article class="card"><h3>${esc(title)}</h3>${body}${actions}</article>`;}
 function subjects(){return DATA.subjects.filter(s=>s.classes.includes(filter.classId));}
@@ -34,7 +34,7 @@ function renderSearch(q){
  const box=document.getElementById('searchResults'); if(!box)return;
  q=q.trim().toLowerCase(); if(!q){box.innerHTML='';return;}
  const rows=[...DATA.subjects,...DATA.chapters,...DATA.concepts,...DATA.questions].filter(x=>JSON.stringify(x).toLowerCase().includes(q)).slice(0,12);
- box.innerHTML=rows.length?`<div class="search-results">${rows.map(x=>`<button class="search-item" data-search-id="${esc(x.id)}">${esc(x.title||x.text||x.name)} <small>${esc(x.type||'academic')}</small></button>`).join('')}</div>`:`<div class="muted">No permitted academic result found.</div>`;
+ box.innerHTML=rows.length?`<div class="search-results">${rows.map(x=>`<button class="search-item" data-search-id="${esc(x.id)}">${esc(t(x.title||x.text||x.name,x.titleHi||x.textHi||x.nameHi))} <small>${esc(x.type||'academic')}</small></button>`).join('')}</div>`:`<div class="muted">No permitted academic result found.</div>`;
 }
 async function routeContent(r){
  if(r==='Home') return home();
@@ -55,23 +55,23 @@ async function home(){
  }
 }
 async function learning(){
- if(!current.subjectId)return `<div class="grid">${subjects().map(s=>card(filter.language==='hi'?s.nameHi:s.name,`<p class="muted">${esc(s.description)}</p>`,`<button class="action" data-subject="${s.id}">Open</button>`)).join('')}</div>`;
- if(!current.chapterId)return `<button class="action" data-back="subject">← Subjects</button><div class="grid">${chapters().map(c=>card(filter.language==='hi'?c.titleHi:c.title,`<p class="muted">${esc(c.description)}</p>`,`<button class="action" data-chapter="${c.id}">Open</button>`)).join('')}</div>`;
- if(!current.conceptId)return `<button class="action" data-back="chapter">← Chapters</button><div class="grid">${concepts().map(c=>card(filter.language==='hi'?c.titleHi:c.title,`<p>${esc(c.summary)}</p><p class="muted">${esc(c.topic)}</p>`,`<button class="action" data-concept="${c.id}">Study concept</button>`)).join('')}</div>`;
+ if(!current.subjectId)return `<div class="grid">${subjects().map(s=>card(t(s.name,s.nameHi),`<p class="muted">${esc(t(s.description,s.descriptionHi))}</p>`,`<button class="action" data-subject="${s.id}">Open</button>`)).join('')}</div>`;
+ if(!current.chapterId)return `<button class="action" data-back="subject">← Subjects</button><div class="grid">${chapters().map(c=>card(t(c.title,c.titleHi),`<p class="muted">${esc(t(c.description,c.descriptionHi))}</p>`,`<button class="action" data-chapter="${c.id}">Open</button>`)).join('')}</div>`;
+ if(!current.conceptId)return `<button class="action" data-back="chapter">← Chapters</button><div class="grid">${concepts().map(c=>card(t(c.title,c.titleHi),`<p>${esc(t(c.summary,c.summaryHi))}</p><p class="muted">${esc(t(c.topic,c.topicHi))}</p>`,`<button class="action" data-concept="${c.id}">Study concept</button>`)).join('')}</div>`;
  const c=DATA.concepts.find(x=>x.id===current.conceptId); let progressHtml;
  try{const prog=await engine.getConceptProgress(c.id);progressHtml=`<p class="muted">Progress: ${prog.accuracy}% accuracy · ${prog.attempts} attempts · mastery ${prog.mastery}%</p>`;}
  catch(error){console.error('Unable to load concept progress:',error);progressHtml='<p class="muted">Progress is temporarily unavailable.</p>';}
- return `<button class="action" data-back="concept">← Concepts</button>${card(filter.language==='hi'?c.titleHi:c.title,`<p>${esc(c.summary)}</p>${progressHtml}`,`<button class="action" data-practice-concept="${c.id}">Practice this concept</button> <button class="action" data-revise="${c.id}">Add to revision</button>`)}`;
+ return `<button class="action" data-back="concept">← Concepts</button>${card(t(c.title,c.titleHi),`<p>${esc(t(c.summary,c.summaryHi))}</p>${progressHtml}`,`<button class="action" data-practice-concept="${c.id}">Practice this concept</button> <button class="action" data-revise="${c.id}">Add to revision</button>`)}`;
 }
 function practice(){
  const qs=engine.getPracticeQuestions(filter,current.conceptId); if(current.questionId){const q=currentQuestion();return questionView(q);}
- return `<div class="grid">${qs.map(q=>card(q.title,`<p>${esc(q.text)}</p><p class="muted">${esc(q.subjectName)} · ${esc(q.conceptTitle)} · ${esc(q.type)}${q.aiGenerated?' · AI-generated':''}</p>`,`<button class="action" data-question="${q.id}">Attempt</button>`)).join('')||card('No questions available','Select a concept or check another class.')}</div>`;
+ return `<div class="grid">${qs.map(q=>card(t(q.title,q.titleHi),`<p>${esc(t(q.text,q.textHi))}</p><p class="muted">${esc(t(q.subjectName,q.subjectNameHi))} · ${esc(t(q.conceptTitle,q.conceptTitleHi))} · ${esc(q.type)}${q.aiGenerated?' · AI-generated':''}</p>`,`<button class="action" data-question="${q.id}">Attempt</button>`)).join('')||card('No questions available','Select a concept or check another class.')}</div>`;
 }
-function questionView(q){return card(q.title,`<p>${esc(q.text)}</p><form id="answerForm"><label>Answer<input id="answer" required autocomplete="off"></label><button class="action" type="submit">Check answer</button></form><div id="answerResult"></div>`);}
+function questionView(q){return card(t(q.title,q.titleHi),`<p>${esc(t(q.text,q.textHi))}</p><form id="answerForm"><label>Answer<input id="answer" required autocomplete="off"></label><button class="action" type="submit">Check answer</button></form><div id="answerResult"></div>`);}
 async function performance(){
  try{
   const [p,weak,revisionQueue]=await Promise.all([engine.getOverallProgress(filter),engine.getWeakConcepts(filter),engine.getRevisionQueue()]);
-  return `<div class="grid">${card('Overall Performance',`<p><strong>${p.accuracy}%</strong> accuracy</p><p>${p.attempts} attempts · ${p.correct} correct · ${p.incorrect} incorrect</p>`)}${card('Concept Progress',`<p>${p.completedConcepts} concepts attempted across ${subjects().length} subjects.</p>`)}${card('Weak Concepts',weak.length?`<ul>${weak.slice(0,8).map(x=>`<li>${esc(x.title)} — ${x.accuracy}%</li>`).join('')}</ul>`:`<p class="muted">No weak concept detected yet.</p>`)}${card('Revision Queue',`<p>${revisionQueue.length} concepts queued.</p>`,`<button class="action" data-route2="Learning">Open Learning</button>`)}</div>`;
+  return `<div class="grid">${card('Overall Performance',`<p><strong>${p.accuracy}%</strong> accuracy</p><p>${p.attempts} attempts · ${p.correct} correct · ${p.incorrect} incorrect</p>`)}${card('Concept Progress',`<p>${p.completedConcepts} concepts attempted across ${subjects().length} subjects.</p>`)}${card('Weak Concepts',weak.length?`<ul>${weak.slice(0,8).map(x=>`<li>${esc(t(x.title,x.titleHi))} — ${x.accuracy}%</li>`).join('')}</ul>`:`<p class="muted">No weak concept detected yet.</p>`)}${card('Revision Queue',`<p>${revisionQueue.length} concepts queued.</p>`,`<button class="action" data-route2="Learning">Open Learning</button>`)}</div>`;
  }catch(error){
   console.error('Unable to load academic performance data:',error);
   return card('Performance unavailable',`<p class="muted">Performance and revision data could not be loaded. Please try again.</p>`);
@@ -88,7 +88,7 @@ function bindActions(){
  document.querySelectorAll('[data-revise]').forEach(b=>b.onclick=async()=>{await engine.queueRevision(b.dataset.revise);alert('Concept added to revision queue.');await render()});
  document.querySelectorAll('[data-route2]').forEach(b=>b.onclick=async()=>{current.route=b.dataset.route2;await render()});
  document.querySelectorAll('[data-back]').forEach(b=>b.onclick=async()=>{if(b.dataset.back==='subject'){current.subjectId=null;current.chapterId=null;current.conceptId=null}if(b.dataset.back==='chapter')current.conceptId=null;if(b.dataset.back==='concept')current.conceptId=null;await render()});
- const form=document.getElementById('answerForm'); if(form)form.onsubmit=async e=>{e.preventDefault();const q=currentQuestion();const result=engine.checkAnswer(q,document.getElementById('answer').value);await engine.recordAttempt(q,result);document.getElementById('answerResult').innerHTML=`<div class="result ${result.correct?'good':'danger'}"><strong>${result.correct?'Correct':'Needs review'}</strong><p>${esc(result.explanation)}</p><p>Concept progress updated.</p><button class="action" id="nextQ">Continue</button></div>`;document.getElementById('nextQ').onclick=async()=>{current.questionId=null;await render()};};
+ const form=document.getElementById('answerForm'); if(form)form.onsubmit=async e=>{e.preventDefault();const q=currentQuestion();const result=engine.checkAnswer(q,document.getElementById('answer').value);await engine.recordAttempt(q,result);document.getElementById('answerResult').innerHTML=`<div class="result ${result.correct?'good':'danger'}"><strong>${result.correct?'Correct':'Needs review'}</strong><p>${esc(t(result.explanation,result.explanationHi))}</p><p>Concept progress updated.</p><button class="action" id="nextQ">Continue</button></div>`;document.getElementById('nextQ').onclick=async()=>{current.questionId=null;await render()};};
  const n=document.getElementById('toggleNotify');if(n)n.onclick=async()=>{state.settings.notifications=!state.settings.notifications;state.history.push({time:new Date().toISOString(),type:'settings',detail:'Notification preference changed'});await render()};
 }
 window.addEventListener('online',render);window.addEventListener('offline',render);
