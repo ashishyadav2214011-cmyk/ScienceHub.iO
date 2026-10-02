@@ -156,12 +156,49 @@ const concepts=[
  {id:'hin12c1',classId:'12',subjectId:'hin12',chapterId:'hin12-1',topicId:'topic-hin12-literature',conceptNumber:1,topic:'Literature',topicHi:'साहित्य',title:'Literary Response',titleHi:'साहित्यिक प्रतिक्रिया',summary:'Respond to literary ideas with evidence.',summaryHi:'साहित्यिक विचारों पर प्रमाण सहित प्रतिक्रिया देना।',difficulty:'foundation',prerequisites:[]}
 ];
 
+for(const concept of concepts){
+ concept.source='ScienceHub seed';
+ concept.provenance='Retained from the committed practice-linked seed; detailed UPMSP and NCERT syllabus alignment has not been verified.';
+ concept.verificationStatus='pending_syllabus_mapping';
+}
+
+const englishSkillConcepts=[
+ {id:'eng11c-reading-passage',classId:'11',subjectId:'eng',chapterId:'eng11-1',conceptNumber:1,topic:'Unseen Passage',topicHi:'अपठित गद्यांश',title:'Reading Comprehension',titleHi:'पठन-बोध',summary:'Answer short-response questions and vocabulary items from a long unseen passage.',summaryHi:'लंबे अपठित गद्यांश पर लघु-उत्तरीय प्रश्नों और शब्दावली संबंधी प्रश्नों के उत्तर देना।'},
+ {id:'eng11c-note-summary',classId:'11',subjectId:'eng',chapterId:'eng11-writing',conceptNumber:1,topic:'Note Making and Summary',topicHi:'टिप्पणी लेखन और सारांश',title:'Note Making and Summary',titleHi:'टिप्पणी लेखन और सारांश',summary:'Make notes from a source passage and produce a summary.',summaryHi:'स्रोत गद्यांश से टिप्पणियाँ बनाना और उसका सारांश लिखना।'},
+ {id:'eng11c-article-essay',classId:'11',subjectId:'eng',chapterId:'eng11-writing',conceptNumber:2,topic:'Article and Essay',topicHi:'लेख और निबंध',title:'Article and Essay Writing',titleHi:'लेख और निबंध लेखन',summary:'Write an article or essay in response to the prescribed task.',summaryHi:'निर्धारित विषय के अनुरूप लेख या निबंध लिखना।'},
+ {id:'eng11c-formal-letters',classId:'11',subjectId:'eng',chapterId:'eng11-writing',conceptNumber:3,topic:'Formal Letters',topicHi:'औपचारिक पत्र',title:'Formal and Business Letters',titleHi:'औपचारिक और व्यावसायिक पत्र',summary:'Write letters to an editor, complaint letters, and business letters such as enquiries or orders.',summaryHi:'संपादक को पत्र, शिकायत-पत्र और पूछताछ या आदेश जैसे व्यावसायिक पत्र लिखना।'},
+ {id:'eng11c-language-grammar',classId:'11',subjectId:'eng',chapterId:'eng11-grammar',conceptNumber:1,topic:'Grammar and Language Use',topicHi:'व्याकरण और भाषा-प्रयोग',title:'Narration, Synthesis, Transformation and Syntax',titleHi:'कथन, संश्लेषण, रूपांतरण और वाक्य-विन्यास',summary:'Apply the listed grammar areas in multiple-choice and short-answer items.',summaryHi:'सूचीबद्ध व्याकरण क्षेत्रों का बहुविकल्पीय और लघु-उत्तरीय प्रश्नों में प्रयोग करना।'},
+ {id:'eng11c-vocabulary',classId:'11',subjectId:'eng',chapterId:'eng11-grammar',conceptNumber:2,topic:'Vocabulary',topicHi:'शब्दावली',title:'Idioms, Phrasal Verbs and Word Relations',titleHi:'मुहावरे, वाक्यांशीय क्रियाएँ और शब्द-संबंध',summary:'Work with idioms, phrasal verbs, synonyms, antonyms, one-word substitutions, and homophones.',summaryHi:'मुहावरों, वाक्यांशीय क्रियाओं, समानार्थी-विलोम शब्दों, एक-शब्द प्रतिस्थापन और समध्वनि शब्दों का प्रयोग करना।'},
+ {id:'eng11c-translation',classId:'11',subjectId:'eng',chapterId:'eng11-grammar',conceptNumber:3,topic:'Translation',topicHi:'अनुवाद',title:'Hindi to English Translation',titleHi:'हिंदी से अंग्रेज़ी अनुवाद',summary:'Translate a short set of Hindi sentences into English.',summaryHi:'हिंदी के वाक्यों के छोटे समूह का अंग्रेज़ी में अनुवाद करना।'},
+ {id:'eng11c-poetry-appreciation',classId:'11',subjectId:'eng',chapterId:'eng11-a-photograph',conceptNumber:1,topic:'Poetry Appreciation',topicHi:'कविता का आस्वादन',title:'Theme, Form, Rhyme and Imagery',titleHi:'विषय, रूप, तुक और बिंब',summary:'Appreciate a prescribed poem through its main theme, form, word choice, rhyme scheme, and imagery.',summaryHi:'निर्धारित कविता के मुख्य विषय, रूप, शब्द-चयन, तुक-योजना और बिंबों के आधार पर उसका आस्वादन करना।'},
+ {id:'eng11c-figures-of-speech',classId:'11',subjectId:'eng',chapterId:'eng11-a-photograph',conceptNumber:2,topic:'Figures of Speech',topicHi:'अलंकार',title:'Identify Prescribed Figures of Speech',titleHi:'निर्धारित अलंकारों की पहचान',summary:'Identify simile, metaphor, personification, oxymoron, apostrophe, hyperbole, and onomatopoeia.',summaryHi:'उपमा, रूपक, मानवीकरण, विरोधाभास, संबोधन, अतिशयोक्ति और ध्वनि-अनुकरण की पहचान करना।'},
+ {id:'eng12c-reading-passage',classId:'12',subjectId:'eng12',chapterId:'eng12-1',conceptNumber:1,topic:'Unseen Passage',topicHi:'अपठित गद्यांश',title:'Reading Comprehension',titleHi:'पठन-बोध',summary:'Answer short-response questions and vocabulary items from a long unseen passage.',summaryHi:'लंबे अपठित गद्यांश पर लघु-उत्तरीय प्रश्नों और शब्दावली संबंधी प्रश्नों के उत्तर देना।'},
+ {id:'eng12c-article-writing',classId:'12',subjectId:'eng12',chapterId:'eng12-writing',conceptNumber:1,topic:'Article Writing',topicHi:'लेख लेखन',title:'Descriptive, Argumentative and Autobiographical Articles',titleHi:'वर्णनात्मक, तर्कपूर्ण और आत्मकथात्मक लेख',summary:'Write an article in one of the prescribed descriptive, argumentative, or autobiographical forms.',summaryHi:'निर्धारित वर्णनात्मक, तर्कपूर्ण या आत्मकथात्मक रूप में लेख लिखना।'},
+ {id:'eng12c-formal-letters',classId:'12',subjectId:'eng12',chapterId:'eng12-writing',conceptNumber:2,topic:'Formal Letters',topicHi:'औपचारिक पत्र',title:'Formal and Business Letters',titleHi:'औपचारिक और व्यावसायिक पत्र',summary:'Write letters to an editor, complaint letters, and business letters such as enquiries or orders.',summaryHi:'संपादक को पत्र, शिकायत-पत्र और पूछताछ या आदेश जैसे व्यावसायिक पत्र लिखना।'},
+ {id:'eng12c-language-grammar',classId:'12',subjectId:'eng12',chapterId:'eng12-grammar',conceptNumber:1,topic:'Grammar and Language Use',topicHi:'व्याकरण और भाषा-प्रयोग',title:'Narration, Synthesis, Transformation and Syntax',titleHi:'कथन, संश्लेषण, रूपांतरण और वाक्य-विन्यास',summary:'Apply the listed grammar areas in multiple-choice and short-answer items.',summaryHi:'सूचीबद्ध व्याकरण क्षेत्रों का बहुविकल्पीय और लघु-उत्तरीय प्रश्नों में प्रयोग करना।'},
+ {id:'eng12c-vocabulary',classId:'12',subjectId:'eng12',chapterId:'eng12-grammar',conceptNumber:2,topic:'Vocabulary',topicHi:'शब्दावली',title:'Idioms, Phrasal Verbs and Word Relations',titleHi:'मुहावरे, वाक्यांशीय क्रियाएँ और शब्द-संबंध',summary:'Work with idioms, phrasal verbs, synonyms, antonyms, one-word substitutions, and homophones.',summaryHi:'मुहावरों, वाक्यांशीय क्रियाओं, समानार्थी-विलोम शब्दों, एक-शब्द प्रतिस्थापन और समध्वनि शब्दों का प्रयोग करना।'},
+ {id:'eng12c-translation',classId:'12',subjectId:'eng12',chapterId:'eng12-grammar',conceptNumber:3,topic:'Translation',topicHi:'अनुवाद',title:'Hindi to English Translation',titleHi:'हिंदी से अंग्रेज़ी अनुवाद',summary:'Translate a short set of Hindi sentences into English.',summaryHi:'हिंदी के वाक्यों के छोटे समूह का अंग्रेज़ी में अनुवाद करना।'},
+ {id:'eng12c-poetry-central-idea',classId:'12',subjectId:'eng12',chapterId:'eng12-my-mother-at-sixty-six',conceptNumber:1,topic:'Poetry Response',topicHi:'कविता पर प्रतिक्रिया',title:'Central Idea of a Poem',titleHi:'कविता का केंद्रीय भाव',summary:'State the central idea of a prescribed poem and answer questions about a poetry extract.',summaryHi:'निर्धारित कविता का केंद्रीय भाव बताना और काव्यांश पर आधारित प्रश्नों के उत्तर देना।'},
+ {id:'eng12c-figures-of-speech',classId:'12',subjectId:'eng12',chapterId:'eng12-my-mother-at-sixty-six',conceptNumber:2,topic:'Figures of Speech',topicHi:'अलंकार',title:'Identify Prescribed Figures of Speech',titleHi:'निर्धारित अलंकारों की पहचान',summary:'Identify simile, metaphor, personification, oxymoron, apostrophe, hyperbole, and onomatopoeia.',summaryHi:'उपमा, रूपक, मानवीकरण, विरोधाभास, संबोधन, अतिशयोक्ति और ध्वनि-अनुकरण की पहचान करना।'}
+];
+
+for(const concept of englishSkillConcepts){
+ concept.topicId=`topic-${concept.id}`;
+ concept.difficulty='foundation';
+ concept.prerequisites=[];
+ concept.source='UPMSP';
+ concept.provenance=`Explicit English syllabus scope in the official UPMSP 2026-27 PDF; source resource upmsp-${concept.classId}-eng.`;
+ concept.verificationStatus='verified_upmsp_syllabus_scope';
+}
+concepts.push(...englishSkillConcepts);
+
 const topics=concepts.map(concept=>({
  id:concept.topicId,classId:concept.classId,subjectId:concept.subjectId,
  chapterId:concept.chapterId,topicNumber:concept.conceptNumber,
  title:concept.topic,titleHi:concept.topicHi,
  description:concept.summary,descriptionHi:concept.summaryHi,
- source:'ScienceHub seed',provenance:'Retained from the existing practice-linked concept; official syllabus mapping is pending.'
+ source:concept.source,provenance:concept.provenance,
+ verificationStatus:concept.verificationStatus
 }));
 
 const questionDefinitions=[
@@ -178,16 +215,49 @@ const questionDefinitions=[
  {id:'q-hin12-1',classId:'12',subjectId:'hin12',conceptId:'hin12c1',title:'Literary Response Check',titleHi:'साहित्यिक प्रतिक्रिया जाँच',text:'What is useful to support a literary response?',textHi:'साहित्यिक प्रतिक्रिया के समर्थन में किसका उपयोग करना चाहिए?',type:'short',answer:'evidence',answerHi:'प्रमाण',explanation:'Evidence from the text helps support a literary response.',explanationHi:'पाठ से लिया गया प्रमाण साहित्यिक प्रतिक्रिया को पुष्ट करता है.'}
 ];
 
+questionDefinitions.push(
+ {id:'q-phy11-3',conceptId:'phy11c1',title:'Mass Unit Check',titleHi:'द्रव्यमान मात्रक जाँच',text:'What is the SI base unit of mass?',textHi:'द्रव्यमान का SI मूल मात्रक क्या है?',type:'short',answer:'kilogram',answerHi:'किलोग्राम',explanation:'The SI base unit of mass is kilogram.',explanationHi:'द्रव्यमान का SI मूल मात्रक किलोग्राम है.'},
+ {id:'q-phy11-4',conceptId:'phy11c2',title:'Velocity Unit Check',titleHi:'वेग मात्रक जाँच',text:'What is the SI unit of velocity?',textHi:'वेग का SI मात्रक क्या है?',type:'short',answer:'m/s',answerHi:'मीटर प्रति सेकंड',explanation:'Velocity is measured in metres per second.',explanationHi:'वेग मीटर प्रति सेकंड में मापा जाता है.'},
+ {id:'q-chem11-2',conceptId:'chem11c1',title:'Avogadro Constant Check',titleHi:'एवोगैड्रो नियतांक जाँच',text:'Approximately what is the value of the Avogadro constant?',textHi:'एवोगैड्रो नियतांक का लगभग मान क्या है?',type:'short',answer:'6.022e23',answerHi:'6.022e23',explanation:'The Avogadro constant is approximately 6.022 × 10^23 per mole.',explanationHi:'एवोगैड्रो नियतांक लगभग 6.022 × 10^23 प्रति मोल है.'},
+ {id:'q-bio11-2',conceptId:'bio11c1',title:'Living Organism Check',titleHi:'जीव जाँच',text:'Are bacteria living organisms?',textHi:'क्या जीवाणु सजीव जीव हैं?',type:'short',answer:'yes',answerHi:'हाँ',explanation:'Bacteria are living organisms.',explanationHi:'जीवाणु सजीव जीव हैं.'},
+ {id:'q-eng11-2',conceptId:'eng11c1',title:'Supporting Detail Check',titleHi:'सहायक विवरण जाँच',text:'What kind of details help support a passage’s main idea?',textHi:'गद्यांश के मुख्य विचार को पुष्ट करने में किस प्रकार के विवरण सहायक होते हैं?',type:'short',answer:'supporting details',answerHi:'सहायक विवरण',explanation:'Supporting details provide evidence for a passage’s main idea.',explanationHi:'सहायक विवरण गद्यांश के मुख्य विचार के प्रमाण देते हैं.'},
+ {id:'q-hin11-2',conceptId:'hin11c1',title:'Clear Expression Check',titleHi:'स्पष्ट अभिव्यक्ति जाँच',text:'Name one quality that makes an explanation easy to understand.',textHi:'किसी व्याख्या को समझने योग्य बनाने वाला एक गुण बताइए।',type:'short',answer:'clarity',answerHi:'स्पष्टता',explanation:'Clarity helps readers understand an explanation.',explanationHi:'स्पष्टता पाठकों को व्याख्या समझने में सहायता करती है.'},
+ {id:'q-phy12-2',conceptId:'phy12c1',title:'Electron Charge Check',titleHi:'इलेक्ट्रॉन आवेश जाँच',text:'What is the sign of an electron’s electric charge?',textHi:'इलेक्ट्रॉन के वैद्युत आवेश का चिह्न क्या होता है?',type:'short',answer:'negative',answerHi:'ऋणात्मक',explanation:'An electron carries a negative electric charge.',explanationHi:'इलेक्ट्रॉन पर ऋणात्मक वैद्युत आवेश होता है.'},
+ {id:'q-chem12-2',conceptId:'chem12c1',title:'Molarity Volume Check',titleHi:'मोलरता आयतन जाँच',text:'Molarity is measured per litre of what?',textHi:'मोलरता में प्रति लीटर किसकी मात्रा ली जाती है?',type:'short',answer:'solution',answerHi:'विलयन',explanation:'Molarity is amount of solute per litre of solution.',explanationHi:'मोलरता प्रति लीटर विलयन में विलेय की मात्रा है.'},
+ {id:'q-bio12-2',conceptId:'bio12c1',title:'Reproduction Mode Check',titleHi:'प्रजनन विधि जाँच',text:'Name the two broad modes of reproduction.',textHi:'प्रजनन की दो व्यापक विधियों के नाम बताइए।',type:'short',answer:'sexual and asexual',answerHi:'लैंगिक और अलैंगिक',explanation:'The two broad modes are sexual and asexual reproduction.',explanationHi:'दो व्यापक विधियाँ लैंगिक और अलैंगिक प्रजनन हैं.'},
+ {id:'q-eng12-2',conceptId:'eng12c1',title:'Inference Evidence Check',titleHi:'अनुमान प्रमाण जाँच',text:'What should an inference be based on?',textHi:'अनुमान किस पर आधारित होना चाहिए?',type:'short',answer:'textual evidence',answerHi:'पाठ्य प्रमाण',explanation:'An inference should be grounded in evidence from the text.',explanationHi:'अनुमान पाठ से मिले प्रमाण पर आधारित होना चाहिए.'},
+ {id:'q-hin12-2',conceptId:'hin12c1',title:'Literary Evidence Check',titleHi:'साहित्यिक प्रमाण जाँच',text:'What can support an interpretation of a literary text?',textHi:'साहित्यिक पाठ की व्याख्या को किससे समर्थन मिल सकता है?',type:'short',answer:'textual evidence',answerHi:'पाठ्य प्रमाण',explanation:'Textual evidence supports an interpretation.',explanationHi:'पाठ्य प्रमाण व्याख्या का समर्थन करता है.'}
+);
+
 const questions=questionDefinitions.map(question=>{
  const concept=concepts.find(item=>item.id===question.conceptId);
  return {
-    ...question,classId:concept.classId,chapterId:concept.chapterId,
+   ...question,classId:concept.classId,subjectId:concept.subjectId,chapterId:concept.chapterId,
     topicId:concept.topicId,difficulty:'foundation',source:'ScienceHub original practice seed',
-    year:null,board:BOARD,aiGenerated:false
+   provenance:'Original ScienceHub practice; not copied from a textbook or represented as official.',
+   verificationStatus:'original_practice_not_official',year:null,board:BOARD,aiGenerated:false
+ };
+});
+
+const curriculumMappings=chapters.map(chapter=>{
+ const linkedTopics=topics.filter(topic=>topic.classId===chapter.classId&&topic.subjectId===chapter.subjectId&&topic.chapterId===chapter.id);
+ const linkedConcepts=concepts.filter(concept=>concept.classId===chapter.classId&&concept.subjectId===chapter.subjectId&&concept.chapterId===chapter.id);
+ const resourceId=`upmsp-${chapter.classId}-${chapter.subjectId.replace(/12$/,'')}`;
+ return {
+    id:`mapping-${chapter.id}`,classId:chapter.classId,subjectId:chapter.subjectId,
+   board:BOARD,academicSession:SESSION,chapterId:chapter.id,
+   upmspUnitId:chapter.structureType==='upmsp_syllabus_unit'?chapter.id:null,
+   upmspUnitTitle:chapter.structureType==='upmsp_syllabus_unit'?chapter.title:null,
+    ncertChapterId:null,ncertChapterTitle:null,
+    topicIds:linkedTopics.map(topic=>topic.id),conceptIds:linkedConcepts.map(concept=>concept.id),
+   source:'UPMSP',sourceResourceId:resourceId,
+   provenance:`Source resource ${resourceId} records the syllabus structure; exact NCERT chapter and detailed topic/concept correspondence have not been verified from extractable source text.`,
+    verificationStatus:'pending_ncert_topic_concept_mapping'
  };
 });
 
 const syllabusResources=[
+
  ['11','phy','Physics','hi','151-Physics-Class-11.pdf'],
  ['11','chem','Chemistry','hi','152-Chemistry-Class-11.pdf'],
  ['11','bio','Biology','hi','153-Biology-Class-11.pdf'],
@@ -223,14 +293,18 @@ const coverage=subjects.map(subject=>({
       :subject.code==='HIN'
          ?'UPMSP_four_unit_structure_verified; prescribed_text_titles_pending_transcription'
          :'UPMSP_2026_27_syllabus_units_verified; detailed_NCERT_chapter_mapping_pending',
- topicStatus:'partial_seed_topics_only; full syllabus mapping pending',
- conceptStatus:'partial_seed_concepts_only; full syllabus mapping pending',
- practiceStatus:'original seed questions only; not syllabus-complete',
+ topicStatus:subject.code==='ENG'
+    ?'UPMSP reading_writing_grammar_and_literature_scope_mapped; individual_text_mapping_pending'
+    :'partial_seed_topics_only; full syllabus mapping pending',
+ conceptStatus:subject.code==='ENG'
+    ?'UPMSP English skill concepts mapped; individual_text_and_NCERT_alignment_pending'
+    :'partial_seed_concepts_only; full syllabus mapping pending',
+ practiceStatus:'original ScienceHub practice items; not syllabus-complete or official',
  pyqStatus:'no verified PYQ records loaded',coverageStatus:'unit_level_coverage; topic_concept_and_PYQ_mapping_incomplete'
 }));
 
 export const DATA={
- schemaVersion:2,datasetStatus:'verified_2026_27_syllabus_units; detailed_topic_concept_mapping_incomplete',
- board:BOARD,academicSession:SESSION,subjects,chapters,
+ schemaVersion:2,datasetStatus:'verified_2026_27_syllabus_units; detailed_topic_concept_mapping_pending',
+ board:BOARD,academicSession:SESSION,subjects,chapters,curriculumMappings,
  topics,concepts,questions,pyqs:[],resources:syllabusResources,coverage
 };

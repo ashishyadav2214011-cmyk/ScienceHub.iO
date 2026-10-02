@@ -33,7 +33,7 @@ async function render(){
 function renderSearch(q){
  const box=document.getElementById('searchResults'); if(!box)return;
  q=q.trim().toLowerCase(); if(!q){box.innerHTML='';return;}
- const rows=[...DATA.subjects,...DATA.chapters,...DATA.concepts,...DATA.questions].filter(x=>JSON.stringify(x).toLowerCase().includes(q)).slice(0,12);
+ const rows=[...DATA.subjects,...DATA.chapters,...DATA.topics,...DATA.concepts,...DATA.questions].filter(x=>JSON.stringify(x).toLowerCase().includes(q)).slice(0,12);
  box.innerHTML=rows.length?`<div class="search-results">${rows.map(x=>`<button class="search-item" data-search-id="${esc(x.id)}">${esc(t(x.title||x.text||x.name,x.titleHi||x.textHi||x.nameHi))} <small>${esc(x.type||'academic')}</small></button>`).join('')}</div>`:`<div class="muted">No permitted academic result found.</div>`;
 }
 async function routeContent(r){
