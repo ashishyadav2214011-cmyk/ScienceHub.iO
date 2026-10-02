@@ -256,6 +256,20 @@ const curriculumMappings=chapters.map(chapter=>{
  };
 });
 
+function setHindiTranslationStatus(items,fields){
+ for(const item of items){
+   item.hindiTranslationStatus=fields.every(field=>typeof item[field]==='string'&&item[field].trim())
+      ?'provided_unverified'
+      :'pending_translation';
+ }
+}
+
+setHindiTranslationStatus(subjects,['nameHi','descriptionHi']);
+setHindiTranslationStatus(chapters,['titleHi','descriptionHi']);
+setHindiTranslationStatus(topics,['titleHi','descriptionHi']);
+setHindiTranslationStatus(concepts,['topicHi','titleHi','summaryHi']);
+setHindiTranslationStatus(questions,['titleHi','textHi','answerHi','explanationHi']);
+
 const syllabusResources=[
 
  ['11','phy','Physics','hi','151-Physics-Class-11.pdf'],
