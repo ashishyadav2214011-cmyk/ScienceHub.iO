@@ -1,31 +1,23 @@
-# ScienceHub.io — Phase 1 Foundation
+# ScienceHub.io P0 Entry-Point Fix (overlay)
 
-This is the Phase 1 foundation/specification package for ScienceHub.io.
+## Purpose
+Align the repository root `index.html` with the Phase 5 runtime already declared in `3_index.html`.
 
-## GitHub mobile upload format
-GitHub mobile uploads files reliably, so this package intentionally uses a **flat file layout**. Folder hierarchy is encoded into each filename using the pattern:
+## Root cause verified from GitHub
+The old root `index.html` referenced `manifest.json`, `sciencehub-icon-192.png`, `style.css`, `perspective.css`, `sciencehub-v101.css`, `sciencehub-v102-repair.css`, `app.js`, and several bridge scripts. Fetching those paths from the repository root returned 404. The existing `3_index.html` instead loads `3_manifest.webmanifest`, `4_styles.css`, and `5_app.js`.
 
-`NN_SECTION__SUBSECTION__FILE`
+## Change
+Replace the repository root `index.html` with the supplied file. It uses the same runtime entry references as `3_index.html`, so opening the repository root will launch the Phase 5 academic runtime rather than trying to load missing legacy assets.
 
-The filename prefix preserves the intended hierarchy without requiring GitHub folders during upload.
+## Apply
+Copy this `index.html` over the repository root `index.html` in the GitHub repository, then commit it with message:
+`Fix P0: align root entry point with Phase 5 runtime`
 
-## Hierarchy map
-- `01_IDENTITY__` — identity
-- `02_VISION__` — vision and mission
-- `03_SYSTEM-DOMAINS__` — system domains
-- `04_NAVIGATION__` — primary navigation
-- `05_ACADEMIC-FOUNDATION__` — academic hierarchy, syllabus, classes, PCB and exams
-- `06_NCERT-RESOURCE-SYSTEM__` — bilingual/textbook/resource specifications
-- `07_AI-SYSTEM__` — AI roles and routing
-- `08_OFFLINE-ONLINE__` — offline/online foundation
-- `09_USER-CONTROL__` — authority, permissions, privacy and AI control
-- `10_UPGRADE-GOVERNANCE__` — upgrade, rollback and failure governance
-- `11_VISUAL-IDENTITY__` — visual specifications and official uploaded assets
-- `12_BLUEPRINT-GOVERNANCE__` — scope, authority and blueprint locking
-- `13_PHASE-1-MANIFEST__` — Phase 1 manifest and package documentation
+## Verification still required
+- Open the deployed root URL and confirm Home renders.
+- Check browser console for failed asset/module requests.
+- Verify Learning, Practice, Performance, Settings and Sukoon button.
+- Test hard reload and offline behavior separately (service-worker fixes are not included in this P0 overlay).
 
-## Upload rule
-Select/upload the files **inside this package directly to the repository root**. Do not create an additional wrapper folder. The numbered filename prefixes are the hierarchy.
-
-## Status
-Phase 1 is a foundation/specification package. Production implementation, full integration testing and final release remain separate phases and require the defined user approval process.
+## Scope boundary
+This is a one-file P0 overlay, not a full repository ZIP and not a claim that browser/runtime testing passed. The connected GitHub integration denied both branch creation and file update with HTTP 403, so no remote repository change was made by this assistant.

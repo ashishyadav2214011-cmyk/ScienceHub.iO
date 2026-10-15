@@ -1,0 +1,9 @@
+PASS: manifest path uses existing Phase 5 manifest
+PASS: stylesheet path uses existing Phase 5 stylesheet
+PASS: module path uses existing Phase 5 runtime
+PASS: legacy missing app.js reference removed
+PASS: legacy missing style.css reference removed
+PASS: app mount exists
+PASS: Sukoon button retained
+
+Static overlay checks only; no browser/runtime test performed.
