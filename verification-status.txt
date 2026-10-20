@@ -1,0 +1,8 @@
+Verification status at ZIP creation
+===================================
+Patch files generated: YES
+Full target-repository static validation run: NO (run after overlaying onto a local repo copy)
+Browser/device tests: NOT RUN
+Offline cold-start test: NOT RUN
+GitHub branch modified/pushed: NO
+Upgrade Guard source changed: NO
