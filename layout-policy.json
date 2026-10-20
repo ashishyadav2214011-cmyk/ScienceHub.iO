@@ -1,0 +1,14 @@
+{
+  "repository": "ashishyadav2214011-cmyk/ScienceHub.iO",
+  "principles": [
+    "Preserve deployed root entry points and their relative paths",
+    "Preserve academic runtime modules under academic/",
+    "Organize documentation by purpose rather than deleting duplicates",
+    "Move visual assets to explicit asset directories and rewrite exact references",
+    "Create a timestamped backup before mutation",
+    "Do not change Upgrade Guard implementation in this phase",
+    "Do not claim live deployment until a reviewed commit is pushed and runtime-tested"
+  ],
+  "not_a_full_repository_clone": true,
+  "not_deployed": true
+}
