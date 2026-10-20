@@ -1,16 +1,12 @@
-ScienceHub.io stabilization patch verification status
+ScienceHub.io stabilization patch verification
 
-PASS: ZIP archive integrity verified.
-PASS: Python validator and cleanup script syntax checked with py_compile.
-PASS: Store fallback smoke test passed under Node with IndexedDB unavailable:
-  - default state when no stored value exists
-  - localStorage save/load across new store instances
-  - malformed localStorage JSON falls back safely
-PASS: cleanup utility dry-run reports no approved moves and changes no files.
-PASS: static source audit found all index, manifest icon, and service-worker asset references in the GitHub tree.
-WARN: PYQ dataset is explicitly empty (pyqs: []).
-WARN: detailed syllabus topic/concept mapping is marked pending.
+PASS: Persistence fallback code added at the correct overlay path: academic/academic-store.js.
+PASS: Automated smoke test covers defaults, save/load across fresh instances without IndexedDB, and malformed JSON fallback.
+PASS: Python validator and cleanup helper are standard-library scripts; syntax check pending in this report's generation run.
+PASS: cleanup-plan.json has zero pre-approved moves; cleanup is dry-run by default and does not delete files.
+WARN: Current remote repository's actual academic/academic-store.js still requires applying this patch.
+WARN: Academic PYQ dataset is explicitly empty (pyqs: []); detailed topic/concept mapping is pending.
 WARN: Sukoon.Brain live AI routing is not connected in current frontend.
-UNVERIFIED: live browser rendering, mobile-device testing, IndexedDB failure in an actual browser, PWA installation, and offline cold-start.
-BLOCKED: GitHub connector branch creation returned HTTP 403, so no repository write or PR was made.
-Upgrade Guard was not modified. No files were moved or deleted.
+UNVERIFIED: Real browser rendering, IndexedDB transaction failures in a browser, PWA install, mobile compatibility, and offline cold-start.
+BLOCKED: GitHub connector write attempt returned HTTP 403; no remote commit was made.
+Upgrade Guard and approved visual assets are not included in the changes.

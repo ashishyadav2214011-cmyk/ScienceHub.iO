@@ -1,25 +1,32 @@
-# ScienceHub.io static repository audit
+ScienceHub.io repository audit — stabilization patch scope
+=========================================================
 
-Audit basis: GitHub default branch `main`, commit `5adba1fddaf6a8164fdb6a4c4230a44cbf252a60` (2026-10-20). Repository tree contains 252 tracked files at this revision. This is a source/static audit, not a browser session.
+Reviewed Git tree SHA: cb64ef77d4c4cd671a53fb84862a1dbb921966ca
+Prior tree count: 244 paths (241 root-level, three under academic/). Recheck the current
+branch before applying; repository state may have changed since this snapshot.
 
-## Confirmed results
+Findings from inspected source:
+1. Confirmed fallback bug: academic/academic-store.js wrote app state to localStorage when
+   IndexedDB was unavailable, but loadAppState did not read the same key.
+2. academic/academic-data.js uses syllabus-unit structures and contains status/provenance
+   indicating fine-grained chapter/topic/concept mapping is pending. Full mapping is not
+   demonstrated by the inspected data.
+3. An explicit empty `pyqs: []` marker was present in the inspected academic data source;
+   complete PYQ coverage is not demonstrated.
+4. Sukoon's visual panel is present, but live AI routing is not connected in the inspected
+   runtime description.
+5. Successful static-site deployment alone does not prove browser/device/offline behaviour.
+6. Prior identical-content candidates included index.html and 3_index.html; two similarly
+   named build-prompt text files; and two similarly named visual identity/icon PNGs. These
+   are review candidates only and are not deleted or merged by this patch.
 
-- `index.html` local references resolve: manifest, stylesheet, app module, and frontend icon.
-- Manifest parses as JSON; both icon paths exist in the repository.
-- All local assets listed in `6_sw.js` exist, including academic modules and icon assets.
-- `index.html` and `3_index.html` have identical Git blob SHA; preserved because duplicate content alone does not establish that deletion is safe.
-- `academic/academic-store.js` saves app state to `localStorage` when IndexedDB is unavailable, but the pre-patch `loadAppState()` did not read that fallback key. This was a confirmed persistence bug.
-- `academic/academic-data.js` declares `pyqs: []`; PYQ data coverage is currently empty in this dataset.
-- Dataset status explicitly says detailed topic/concept mapping is pending. Chapter/unit names do not prove full syllabus coverage.
-- `5_app.js` states that live Sukoon.Brain AI routing is not connected in this build.
-- Service worker uses a network-first strategy with cache fallback; browser offline cold-start has not been independently verified.
+Patch scope:
+- One narrow persistence fix.
+- Add static validation and a safe, opt-in cleanup tool.
+- Leave Upgrade Guard and approved visual assets untouched.
 
-## Safety constraints
-
-- No repository files were deleted or moved during this audit.
-- No cleanup moves are pre-approved in `cleanup-plan.json`.
-- Upgrade Guard files were not changed.
-
-## Limits
-
-GitHub connector rejected branch creation with HTTP 403 (`Resource not accessible by integration`), so this session could not push a branch or open a pull request. Apply this patch locally and push from an authorized GitHub session, or retry after connector write permissions are corrected. Live browser/device testing could not be performed in this environment.
+Not verified here:
+- Runtime browser/device tests, IndexedDB-disabled reload, offline cold start, or mobile install.
+- Whether duplicate-looking files are interchangeable in all current references/workflows.
+- Full official UPMSP syllabus correctness/completeness.
+- Production backend, cloud sync, or live AI integration.
