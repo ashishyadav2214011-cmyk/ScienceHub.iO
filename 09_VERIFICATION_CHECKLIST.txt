@@ -1,0 +1,13 @@
+ScienceHub Fix Pack 01 — Verification Checklist
+[ ] Search appears on Home, Learning, Practice, Performance, Assets, Profile and Settings.
+[ ] Searching a subject opens Learning at that subject.
+[ ] Searching a chapter/topic/concept opens the correct hierarchy.
+[ ] Searching a question opens that question in Practice.
+[ ] Entering nonsense containing '6.022' is rejected for q-chem11-1.
+[ ] Valid scientific notation such as 6.022e23 is accepted for q-chem11-1.
+[ ] Exact answer and answerHi are accepted.
+[ ] Wrong answer is recorded as incorrect.
+[ ] Sukoon button opens/closes its visual panel.
+[ ] PWA icons load and have 512x512 dimensions.
+[ ] Service worker installs and offline reload is checked.
+[ ] No console errors after navigating all routes.
