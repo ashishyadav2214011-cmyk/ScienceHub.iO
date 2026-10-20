@@ -1,0 +1,3 @@
+Identical-content groups (SHA-256 only). This does not mean safe to delete.
+
+No groups found.
