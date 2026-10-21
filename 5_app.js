@@ -23,7 +23,7 @@ function topics(){return DATA.topics.filter(x=>x.classId===filter.classId&&x.cha
 function concepts(){return DATA.concepts.filter(x=>x.classId===filter.classId&&x.chapterId===current.chapterId&&x.topicId===current.topicId);}
 function currentQuestion(){return DATA.questions.find(q=>q.id===current.questionId);}
 async function render(){
- try{await save();}catch(e){console.error('ScienceHub: state save failed',e);}
+ await save();
  const app=document.querySelector('#app');
  app.innerHTML=`<div class="shell"><header class="top"><div><div class="brand">ScienceHub.io</div><small class="muted">Phase 5 Academic Runtime</small></div><div class="toolbar"><select id="classSelect" aria-label="Class"><option value="11">Class 11</option><option value="12">Class 12</option></select><select id="langSelect" aria-label="Language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="bi">Bilingual</option></select><input id="search" class="search" placeholder="Search subjects, chapters, concepts…" aria-label="Search" autocomplete="off"></div><div id="searchResults" class="search-results" role="listbox" aria-label="Search results"></div></header><main class="panel"><h1>${esc(current.route)}</h1>${await routeContent(current.route)}</main><nav class="nav">${NAV.map(n=>`<button class="${n===current.route?'active':''}" data-route="${n}">${n}</button>`).join('')}</nav></div>`;
  document.getElementById('classSelect').value=filter.classId;document.getElementById('langSelect').value=filter.language;
@@ -93,5 +93,5 @@ function bindActions(){
  const n=document.getElementById('toggleNotify');if(n)n.onclick=async()=>{state.settings.notifications=!state.settings.notifications;state.history.push({time:new Date().toISOString(),type:'settings',detail:'Notification preference changed'});await render();};
 }
 document.getElementById('sukoon').onclick=()=>{const existing=document.getElementById('sukoonPanel');if(existing){existing.remove();return;}const panel=document.createElement('aside');panel.id='sukoonPanel';panel.className='sukoon-panel';panel.innerHTML=`<img src="./12_SUKOON-BRAIN-REALTIME-ICON.png" alt="Sukoon.Brain icon"><div><strong>Sukoon.Brain</strong><p>Visual concept integrated. Live AI routing is not connected in this build.</p></div><button type="button" aria-label="Close Sukoon panel">×</button>`;document.body.appendChild(panel);panel.querySelector('button').onclick=()=>panel.remove();};
-if('serviceWorker' in navigator)navigator.serviceWorker.register('./6_sw.js').catch(e=>console.warn('ScienceHub: service worker failed',e));
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./6_sw.js').catch(()=>{});
 await render();
