@@ -1,0 +1,1 @@
+ScienceHub.io Fix Pack\n====================\nLocked 5-Tabs: HOME, STUDY, ASSET, PRACTICE, SETTING\nScoring: +2 (Correct), -1 (Incorrect), 0 (Skipped)\nIcons: Frontend DNA PWA Icon + Internal Science Core + Sukoon.Brain Floating Widget\n\nExtract this ZIP directly into your repository root.
