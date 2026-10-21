@@ -1,23 +1,13 @@
-# ScienceHub.io P0 Entry-Point Fix (overlay)
+# ScienceHub Phase 5 starter patch (review before applying)
 
-## Purpose
-Align the repository root `index.html` with the Phase 5 runtime already declared in `3_index.html`.
+This patch addresses two code-level foundations only:
 
-## Root cause verified from GitHub
-The old root `index.html` referenced `manifest.json`, `sciencehub-icon-192.png`, `style.css`, `perspective.css`, `sciencehub-v101.css`, `sciencehub-v102-repair.css`, `app.js`, and several bridge scripts. Fetching those paths from the repository root returned 404. The existing `3_index.html` instead loads `3_manifest.webmanifest`, `4_styles.css`, and `5_app.js`.
+1. `academic/academic-store.js`: reads the localStorage fallback on startup, tolerates storage/IndexedDB errors, and keeps in-session fallbacks for attempts/revision.
+2. `academic/academic-engine.js`: applies the approved `+2 / -1 / skipped 0` score model, excludes skipped attempts from accuracy, records retries as separate attempts, and requires at least two non-skipped attempts before flagging a weak concept.
 
-## Change
-Replace the repository root `index.html` with the supplied file. It uses the same runtime entry references as `3_index.html`, so opening the repository root will launch the Phase 5 academic runtime rather than trying to load missing legacy assets.
+## Important limitations
 
-## Apply
-Copy this `index.html` over the repository root `index.html` in the GitHub repository, then commit it with message:
-`Fix P0: align root entry point with Phase 5 runtime`
-
-## Verification still required
-- Open the deployed root URL and confirm Home renders.
-- Check browser console for failed asset/module requests.
-- Verify Learning, Practice, Performance, Settings and Sukoon button.
-- Test hard reload and offline behavior separately (service-worker fixes are not included in this P0 overlay).
-
-## Scope boundary
-This is a one-file P0 overlay, not a full repository ZIP and not a claim that browser/runtime testing passed. The connected GitHub integration denied both branch creation and file update with HTTP 403, so no remote repository change was made by this assistant.
+- This is **not** a complete Phase 1–5 implementation.
+- The current UI (`5_app.js`) still uses a single text input and does not yet expose a Skip action or display the score. UI integration is a separate required change.
+- Run the existing project tests and browser tests after applying. This patch has not been tested against real IndexedDB in a browser.
+- Apply on a separate branch and review the diff; do not overwrite `main` blindly.

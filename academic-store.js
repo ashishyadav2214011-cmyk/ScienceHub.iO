@@ -1,106 +1,141 @@
-// ScienceHub.io academic store — storage stabilization fix.
-// Fixes vs. previous version:
-//  1. localStorage fallback is now READ as well as written (state survived a save but was never restored).
-//  2. Malformed / non-object localStorage JSON is ignored instead of crashing.
-//  3. If the IndexedDB state read fails, the store will NOT overwrite the unreadable stored state with defaults.
-//  4. Synchronous IndexedDB exceptions (indexedDB.open / db.transaction) no longer reject startup.
-//  5. IndexedDB write errors fall back to the localStorage backup instead of being silently dropped.
-//  6. getRevision() resolved with an Event object on read error; it now resolves with [].
-// Public API and storage names are unchanged.
-const DB='sciencehub-academic-v1';
-const VERSION=1;
-const LS_KEY='sciencehub.phase5.app';
-const LOAD_FAILED=Symbol('load-failed');
-const defaultState=()=>({route:'Home',academic:{classId:'11',board:'UP Board',language:'en'},profile:{picture:null,pictureChangedAt:null},settings:{notifications:true,offline:true},permissions:{},history:[]});
+const DB = 'sciencehub-academic-v1';
+const VERSION = 1;
+const FALLBACK_KEY = 'sciencehub.phase5.app';
 
-export class AcademicStore{
- constructor(){this.db=null;this.ready=false;this.stateReadFailed=false;this.memory={app:null,attempts:[],revision:[]};this.readyPromise=this.open();}
+function defaultState() {
+  return {
+    route: 'Home',
+    academic: { classId: '11', board: 'UP Board', language: 'en' },
+    profile: { picture: null, pictureChangedAt: null },
+    settings: { notifications: true, offline: true },
+    permissions: {},
+    history: []
+  };
+}
 
- open(){return new Promise(resolve=>{
-  try{
-   if(typeof window==='undefined'||!('indexedDB' in window)){resolve();return;}
-   const r=indexedDB.open(DB,VERSION);
-   r.onupgradeneeded=()=>{const db=r.result;if(!db.objectStoreNames.contains('state'))db.createObjectStore('state',{keyPath:'id'});if(!db.objectStoreNames.contains('attempts'))db.createObjectStore('attempts',{keyPath:'id',autoIncrement:true});if(!db.objectStoreNames.contains('revision'))db.createObjectStore('revision',{keyPath:'conceptId'});};
-   r.onsuccess=()=>{this.db=r.result;this.ready=true;resolve()};
-   r.onerror=()=>resolve();
-   r.onblocked=()=>resolve();
-  }catch{resolve();}
- });}
+function validState(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
 
- async init(){await this.readyPromise;return this;}
+export class AcademicStore {
+  constructor() {
+    this.db = null;
+    this.ready = false;
+    this.memory = { app: null, attempts: [], revision: [] };
+    this.readyPromise = this.open();
+  }
 
- // ---- localStorage backup (used when IndexedDB is unavailable or failing) ----
- _readBackup(){
-  try{
-   const raw=localStorage.getItem(LS_KEY);
-   if(!raw)return null;
-   const v=JSON.parse(raw);
-   return v&&typeof v==='object'&&!Array.isArray(v)?v:null;
-  }catch{return null;}
- }
- _writeBackup(value){
-  try{localStorage.setItem(LS_KEY,JSON.stringify(value));return true;}catch{return false;}
- }
+  open() {
+    return new Promise(resolve => {
+      try {
+        if (typeof indexedDB === 'undefined' || !indexedDB?.open) return resolve();
+        const request = indexedDB.open(DB, VERSION);
+        request.onupgradeneeded = () => {
+          const db = request.result;
+          if (!db.objectStoreNames.contains('state')) db.createObjectStore('state', { keyPath: 'id' });
+          if (!db.objectStoreNames.contains('attempts')) db.createObjectStore('attempts', { keyPath: 'id', autoIncrement: true });
+          if (!db.objectStoreNames.contains('revision')) db.createObjectStore('revision', { keyPath: 'conceptId' });
+        };
+        request.onsuccess = () => { this.db = request.result; this.ready = true; resolve(); };
+        request.onerror = () => resolve();
+        request.onblocked = () => resolve();
+      } catch { resolve(); }
+    });
+  }
 
- // ---- single safe IndexedDB request helper ----
- // readonly: resolves map(result), or `fallback` on error. readwrite: resolves true once committed, false on error/abort.
- _req(storeName,mode,make,map=x=>x,fallback=false){
-  return new Promise(resolve=>{
-   try{
-    const tx=this.db.transaction(storeName,mode);
-    const req=make(tx.objectStore(storeName));
-    if(mode==='readonly'){
-     req.onsuccess=()=>resolve(map(req.result));
-     req.onerror=()=>resolve(fallback);
-    }else{
-     tx.oncomplete=()=>resolve(true);
-     tx.onerror=()=>resolve(false);
-     tx.onabort=()=>resolve(false);
-    }
-   }catch{resolve(mode==='readonly'?fallback:false);}
-  });
- }
+  async init() { await this.readyPromise; return this; }
 
- async loadAppState(){
-  await this.init();
-  if(!this.db)return this.memory.app||this._readBackup()||defaultState();
-  const v=await this._req('state','readonly',s=>s.get('app'),r=>r?.value||null,LOAD_FAILED);
-  if(v===LOAD_FAILED){this.stateReadFailed=true;return this._readBackup()||defaultState();}
-  return v||this._readBackup()||defaultState();
- }
+  readFallback() {
+    try {
+      const raw = globalThis.localStorage?.getItem(FALLBACK_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return validState(parsed) ? parsed : null;
+    } catch { return null; }
+  }
 
- // Resolves true if the state was stored (IndexedDB, or the localStorage backup), false if it could not be stored anywhere.
- async saveAppState(value){
-  await this.init();
-  this.memory.app=value;
-  // If we could not read stored state, do not overwrite it with a possibly-empty state.
-  if(!this.db||this.stateReadFailed)return this._writeBackup(value);
-  const ok=await this._req('state','readwrite',s=>s.put({id:'app',value}));
-  return ok?true:this._writeBackup(value);
- }
+  writeFallback(value) {
+    try { globalThis.localStorage?.setItem(FALLBACK_KEY, JSON.stringify(value)); } catch { /* memory fallback remains available */ }
+  }
 
- // Resolves true when stored in IndexedDB; false when only kept in memory (lost on reload).
- async addAttempt(attempt){
-  await this.init();
-  if(this.db&&await this._req('attempts','readwrite',s=>s.add(attempt)))return true;
-  this.memory.attempts.push(attempt);
-  return false;
- }
- async getAttempts(){
-  await this.init();
-  if(!this.db)return this.memory.attempts;
-  return this._req('attempts','readonly',s=>s.getAll(),r=>r||[],[]);
- }
- async setRevision(conceptId,record){
-  await this.init();
-  if(this.db&&await this._req('revision','readwrite',s=>s.put({conceptId,...record})))return true;
-  this.memory.revision=this.memory.revision.filter(x=>x.conceptId!==conceptId);
-  this.memory.revision.push(record);
-  return false;
- }
- async getRevision(){
-  await this.init();
-  if(!this.db)return this.memory.revision;
-  return this._req('revision','readonly',s=>s.getAll(),r=>r||[],[]);
- }
+  async loadAppState() {
+    await this.init();
+    const fallback = this.memory.app || this.readFallback() || defaultState();
+    if (!this.db) return fallback;
+    return new Promise(resolve => {
+      try {
+        const request = this.db.transaction('state', 'readonly').objectStore('state').get('app');
+        request.onsuccess = () => {
+          const value = request.result?.value;
+          if (validState(value)) { this.memory.app = value; resolve(value); }
+          else resolve(fallback);
+        };
+        request.onerror = () => resolve(fallback);
+      } catch { resolve(fallback); }
+    });
+  }
+
+  async saveAppState(value) {
+    await this.init();
+    this.memory.app = value;
+    this.writeFallback(value);
+    if (!this.db) return true;
+    return new Promise(resolve => {
+      try {
+        const request = this.db.transaction('state', 'readwrite').objectStore('state').put({ id: 'app', value });
+        request.onsuccess = () => resolve(true);
+        request.onerror = () => resolve(false);
+      } catch { resolve(false); }
+    });
+  }
+
+  async addAttempt(attempt) {
+    await this.init();
+    if (!this.db) { this.memory.attempts.push({ ...attempt }); return true; }
+    return new Promise(resolve => {
+      try {
+        const request = this.db.transaction('attempts', 'readwrite').objectStore('attempts').add(attempt);
+        request.onsuccess = () => resolve(true);
+        request.onerror = () => { this.memory.attempts.push({ ...attempt }); resolve(false); };
+      } catch { this.memory.attempts.push({ ...attempt }); resolve(false); }
+    });
+  }
+
+  async getAttempts() {
+    await this.init();
+    if (!this.db) return [...this.memory.attempts];
+    return new Promise(resolve => {
+      try {
+        const request = this.db.transaction('attempts', 'readonly').objectStore('attempts').getAll();
+        request.onsuccess = () => resolve(request.result || [...this.memory.attempts]);
+        request.onerror = () => resolve([...this.memory.attempts]);
+      } catch { resolve([...this.memory.attempts]); }
+    });
+  }
+
+  async setRevision(conceptId, record) {
+    await this.init();
+    const value = { conceptId, ...record };
+    this.memory.revision = [...this.memory.revision.filter(x => x.conceptId !== conceptId), value];
+    if (!this.db) return true;
+    return new Promise(resolve => {
+      try {
+        const request = this.db.transaction('revision', 'readwrite').objectStore('revision').put(value);
+        request.onsuccess = () => resolve(true);
+        request.onerror = () => resolve(false);
+      } catch { resolve(false); }
+    });
+  }
+
+  async getRevision() {
+    await this.init();
+    if (!this.db) return [...this.memory.revision];
+    return new Promise(resolve => {
+      try {
+        const request = this.db.transaction('revision', 'readonly').objectStore('revision').getAll();
+        request.onsuccess = () => resolve(request.result || [...this.memory.revision]);
+        request.onerror = () => resolve([...this.memory.revision]);
+      } catch { resolve([...this.memory.revision]); }
+    });
+  }
 }
