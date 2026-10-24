@@ -1,0 +1,21 @@
+/* ScienceHub Phase 1 mobile integration layer */
+.top{gap:12px!important}.brand{display:flex;align-items:center;gap:9px;font-weight:800}
+.sh-brand-icon{width:36px;height:36px;object-fit:contain;border-radius:10px}
+.toolbar{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px!important;width:100%}
+.toolbar>*{min-width:0;max-width:100%;box-sizing:border-box}
+.toolbar .search{grid-column:1/-1;width:100%;box-sizing:border-box}
+#phase1BoardSelect,#phase1SubjectSelect{min-width:0;width:100%;padding:10px;border-radius:12px;border:1px solid #315985;background:#0a1730;color:#fff}
+.phase1-selection-status{flex-basis:100%;color:#a9c6ec;font-size:.76rem}
+.phase1-hero{display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;margin:12px 0 18px;padding:18px;border:1px solid #315985;border-radius:22px;background:radial-gradient(ellipse at 80% 40%,#173c79,#101d3b 45%,#0a142b)}
+.phase1-hero-copy{min-width:0;position:relative;z-index:1}.phase1-hero h2{font-size:clamp(1.4rem,5vw,2.4rem);line-height:1.12;margin:.45rem 0}
+.phase1-hero-logo{width:min(25%,130px);min-width:72px;object-fit:contain}.phase1-eyebrow{color:#72edff;letter-spacing:.12em;font-size:.72rem;font-weight:800}
+.phase1-hero-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.phase1-hero small{display:block;margin-top:10px;color:#a9c6ec}
+.phase1-study-hub{margin:14px 0;padding:16px;border:1px solid #315985;border-radius:18px;background:#0d1a33}
+.phase1-study-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#sukoon{position:fixed!important;z-index:9998;right:14px;bottom:84px;display:flex;align-items:center;gap:7px;max-width:160px;padding:8px 11px;border-radius:999px;border:1px solid #6c8fff;color:#fff;background:linear-gradient(135deg,#263f91,#5632a6);box-shadow:0 8px 26px #0007;touch-action:pan-y;cursor:grab}
+#sukoon img{width:34px;height:34px;object-fit:contain;border-radius:50%}
+#sukoonPanel{position:fixed;z-index:9999;right:12px;bottom:145px;width:min(350px,calc(100vw - 24px));max-height:65vh;overflow:auto;box-sizing:border-box}
+.phase1-chat-log{display:flex;flex-direction:column;gap:8px;max-height:36vh;overflow:auto}
+.phase1-chat-bubble{padding:9px 11px;border-radius:12px;line-height:1.4;overflow-wrap:anywhere}
+.phase1-chat-bubble.user{align-self:flex-end;background:#234f8b}.phase1-chat-bubble.bot{align-self:flex-start;background:#172844}
+@media(max-width:520px){.phase1-hero{align-items:flex-start;padding:16px;gap:8px}.phase1-hero-logo{width:76px;min-width:76px}.phase1-study-links{grid-template-columns:1fr}.phase1-hero-actions button{flex:1 1 130px}}
