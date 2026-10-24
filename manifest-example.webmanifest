@@ -1,0 +1,17 @@
+{
+  "name": "ScienceHub.io",
+  "short_name": "ScienceHub",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070d20",
+  "theme_color": "#070d20",
+  "description": "Personal student Study OS",
+  "icons": [
+    {
+      "src": "./11_VISUAL-INTEGRATION__SCIENCEHUB-FRONTEND-APP-ICON.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

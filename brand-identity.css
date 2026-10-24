@@ -1,0 +1,23 @@
+:root {
+  --sh-navy: #070D20;
+  --sh-cyan: #79F3FF;
+  --sh-violet: #BB8CFF;
+  --sh-gold: #FFC66D;
+  --sh-surface: #101D39;
+  --sh-border: #28517C;
+  --sh-text: #EEF2FF;
+  --sh-muted: #A9BAD8;
+  --sh-radius: 16px;
+}
+
+.sh-brand-mark { display: inline-flex; align-items: center; gap: .55rem; color: var(--sh-text); font-weight: 800; }
+.sh-brand-mark img { width: 36px; height: 36px; object-fit: contain; border-radius: 10px; }
+.sukoon-trigger { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .35rem .8rem .35rem .35rem; border: 1px solid var(--sh-border); border-radius: 999px; background: #0A1730; color: var(--sh-text); cursor: pointer; }
+.sukoon-trigger img { width: 38px; height: 38px; object-fit: cover; border-radius: 50%; }
+.sukoon-trigger:focus-visible, .sukoon-panel button:focus-visible, .sukoon-panel input:focus-visible { outline: 3px solid var(--sh-cyan); outline-offset: 3px; }
+.sukoon-panel { color: var(--sh-text); background: rgb(8 19 42 / 97%); border: 1px solid #3971B7; border-radius: 20px; box-shadow: 0 18px 54px rgb(0 0 0 / 45%); }
+.sukoon-status { display: flex; align-items: center; gap: .5rem; font-size: .875rem; color: var(--sh-muted); }
+.sukoon-status[data-state="connected"] { color: #86EFAC; }
+.sukoon-status[data-state="connecting"] { color: var(--sh-gold); }
+.sukoon-status[data-state="offline"], .sukoon-status[data-state="error"] { color: #FCA5A5; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
